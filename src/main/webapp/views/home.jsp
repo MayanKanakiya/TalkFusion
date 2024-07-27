@@ -51,9 +51,9 @@
 						class="navbar-brand fw-bold d-none d-md-block" href="/">TalkFusion</a>
 					<a
 						class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
-						href="#">Login</a> <a
+						href="/login">Login</a> <a
 						class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
-						href="#">Signup</a>
+						href="/signup">Signup</a>
 					<button class="navbar-toggler border-0 pe-0" type="button"
 						data-bs-toggle="collapse" data-bs-target="#navbar-content"
 						aria-controls="navbar-content" aria-expanded="false"
@@ -326,7 +326,9 @@
 																	src="assets/img/feedback/reviewer_1.webp" alt="" />
 															</div>
 															<div class="text-center text-lg-start">
-																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;TalkFusion has transformed the way I connect with friends and family—seamless and user-friendly!&ldquo;</p>
+																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;TalkFusion
+																	has transformed the way I connect with friends and
+																	family—seamless and user-friendly!&ldquo;</p>
 																<p class="text-800 lh-xl mb-0">Krishna</p>
 															</div>
 														</div>
@@ -341,7 +343,9 @@
 																	src="assets/img/feedback/reviewer_2.webp" alt="" />
 															</div>
 															<div class="text-center text-lg-start">
-																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;The video call feature is crystal clear and incredibly reliable. Highly recommend TalkFusion!&ldquo;</p>
+																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;The
+																	video call feature is crystal clear and incredibly
+																	reliable. Highly recommend TalkFusion!&ldquo;</p>
 																<p class="text-800 lh-xl mb-0">Radha</p>
 															</div>
 														</div>
@@ -356,7 +360,9 @@
 																	src="assets/img/feedback/reviewer_3.webp" alt="" />
 															</div>
 															<div class="text-center text-lg-start">
-																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;Excellent user experience with TalkFusion—everything just works flawlessly. Great job!&ldquo;</p>
+																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;Excellent
+																	user experience with TalkFusion—everything just works
+																	flawlessly. Great job!&ldquo;</p>
 																<p class="text-800 lh-xl mb-0">Ranchhod</p>
 															</div>
 														</div>
@@ -371,7 +377,9 @@
 																	src="assets/img/feedback/kakashi.webp" alt="" />
 															</div>
 															<div class="text-center text-lg-start">
-																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;I love how easy it is to switch between voice messages and text. TalkFusion is a game-changer!&ldquo;</p>
+																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;I
+																	love how easy it is to switch between voice messages
+																	and text. TalkFusion is a game-changer!&ldquo;</p>
 																<p class="text-800 lh-xl mb-0">Parvati</p>
 															</div>
 														</div>
@@ -386,7 +394,9 @@
 																	src="assets/img/feedback/obito.webp" alt="" />
 															</div>
 															<div class="text-center text-lg-start">
-																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;TalkFusion's intuitive design makes communication effortless. I couldn't ask for a better platform!&ldquo;</p>
+																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;TalkFusion's
+																	intuitive design makes communication effortless. I
+																	couldn't ask for a better platform!&ldquo;</p>
 																<p class="text-800 lh-xl mb-0">Mohal</p>
 															</div>
 														</div>
@@ -415,7 +425,7 @@
 					<div class="row gy-2 py-3 justify-content-center">
 						<div class="col-auto text-center">
 							<p class="lh-xl text-1100">
-								© 2024 Copyright, All Rights Reserved, Made by <a
+								&#169; 2024 Copyright, All Rights Reserved, Made by <a
 									class="fw-semi-bold" href="https://themewagon.com/">TalkFusion</a>&#9829;
 							</p>
 						</div>
