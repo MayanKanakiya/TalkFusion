@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="com.example.main.entities.User"%>
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
 
@@ -27,12 +28,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Rubik:ital,wght@0,300..900;1,300..900family=Rubik:ital,wght@0,300..900;1,300..900&amp;display=swap"
 	rel="stylesheet">
-<link href="assets/css/theme.min.css" rel="stylesheet"
-	id="style-default">
-<link href="assets/css/user-rtl.min.css" rel="stylesheet"
-	id="user-style-rtl">
-<link href="assets/css/user.min.css" rel="stylesheet"
-	id="user-style-default">
+<link href="css/theme.min.css" rel="stylesheet" id="style-default">
+<link href="css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
+<link href="css/user.min.css" rel="stylesheet" id="user-style-default">
 <link rel="stylesheet"
 	href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 </head>
@@ -47,13 +45,8 @@
 				data-navbar-soft-on-scroll="data-navbar-soft-on-scroll">
 				<div class="container-fluid px-0">
 					<a href="/"><img class="navbar-brand w-75 d-md-none"
-						src="assets/img/logos/logo.svg" alt="logo" /></a><a
+						src="img/logos/logo.svg" alt="logo" /></a><a
 						class="navbar-brand fw-bold d-none d-md-block" href="/">TalkFusion</a>
-					<a
-						class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
-						href="/login">Login</a> <a
-						class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
-						href="/signup">Signup</a>
 					<button class="navbar-toggler border-0 pe-0" type="button"
 						data-bs-toggle="collapse" data-bs-target="#navbar-content"
 						aria-controls="navbar-content" aria-expanded="false"
@@ -65,9 +58,40 @@
 						<ul
 							class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0"
 							data-navbar-nav="data-navbar-nav">
-							<li class="nav-item"><a class="nav-link lh-xl" href="#home">Home</a></li>
-							<li class="nav-item"><a class="nav-link lh-xl" href="#about">About
+							<li class="nav-item"><a class="nav-link lh-xl" href="/">Home</a></li>
+							<li class="nav-item"><a class="nav-link lh-xl" href="/about">About
 									us</a></li>
+									
+							<li style="display:contents">
+								<%
+								User user = (User) session.getAttribute("user");
+								%> <%
+ if (user == null) {
+ %> <!-- If session exists --> <a
+								class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
+								href="/login">Login</a> <a
+								class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
+								href="/signup">Signup</a> <%
+ } else {
+ %> <!-- If session does not exist -->
+								<div class="collapse navbar-collapse navbar-nav"
+									id="navbarNavDarkDropdown">
+									<ul class="navbar-nav">
+										<li class="nav-item dropdown">
+											<button class="btn btn-dark dropdown-toggle"
+												style="background-color: transparent;border:none;"
+												data-bs-toggle="dropdown" aria-expanded="false">
+												Hello, ${user.username}</button>
+											<ul class="dropdown-menu dropdown-menu-dark">
+												<li><a class="dropdown-item" href="#">Profile</a></li>
+												<li><a class="dropdown-item" href="/logout">Logout</a></li>
+											</ul>
+										</li>
+									</ul>
+								</div> <%
+ }
+ %>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -94,11 +118,11 @@
 								</div>
 								<div class="col-lg-6 position-lg-relative">
 									<div class="position-lg-absolute z-1 text-center">
-										<img class="img-fluid chat-image"
-											src="assets/img/Hero/Frame.webp" alt="" />
+										<img class="img-fluid chat-image" src="img/Hero/Frame.webp"
+											alt="" />
 										<div class="position-absolute dots d-none d-md-block">
 											<img class="img-fluid w-50 w-lg-75"
-												src="assets/img/illustrations/Dots.webp" alt="" />
+												src="img/illustrations/Dots.webp" alt="" />
 										</div>
 									</div>
 								</div>
@@ -106,15 +130,14 @@
 						</div>
 					</div>
 					<div class="position-absolute bottom-0 start-0 end-0 z-1">
-						<img class="wave mb-md-n2" src="assets/img/illustrations/Wave.svg"
-							alt="" />
+						<img class="wave mb-md-n2" src="img/illustrations/Wave.svg" alt="" />
 						<div class="bg-white py-2 py-md-5"></div>
 					</div>
 				</section>
 				<section class="container mb-8 mb-lg-13" id="about">
 					<div class="row align-items-center">
 						<div class="col-12 col-lg-6 col-xl-7">
-							<img class="img-fluid" src="assets/img/Hero/Team.webp"
+							<img class="img-fluid" src="img/Hero/Team.webp"
 								alt="Collaborate on TalkFusion" />
 						</div>
 						<div class="col-12 col-lg-6 col-xl-5">
@@ -230,9 +253,8 @@
 								<div
 									class="position-relative z-1 text-center mb-8 mb-lg-9 video-player-paused"
 									data-video-player-container="data-video-player-container">
-									<video class="w-100 h-100 rounded-4"
-										src="assets/video/Tech_video.mp4"
-										poster="assets/img/Hero/experiences.webp" type="video/mp4"
+									<video class="w-100 h-100 rounded-4" src="video/Tech_video.mp4"
+										poster="img/Hero/experiences.webp" type="video/mp4"
 										data-video-player="data-video-player"></video>
 									<div
 										class="overlay position-absolute top-0 bottom-0 start-0 end-0 rounded-4 bg-1100 object-cover"
@@ -241,15 +263,15 @@
 										class="btn play-button position-absolute justify-content-center align-items-center bg-white rounded-circle cursor-pointer"
 										data-play-button="data-play-button">
 										<img class="play-icon w-25"
-											src="assets/img/illustrations/play-solid.svg" alt=""
+											src="img/illustrations/play-solid.svg" alt=""
 											data-play-icon="data-play-icon" /><img
 											class="pause-icon w-25"
-											src="assets/img/illustrations/pause-solid.svg" alt=""
+											src="img/illustrations/pause-solid.svg" alt=""
 											data-pause-icon="data-pause-icon" />
 									</button>
 									<div class="position-absolute dots d-none d-sm-block">
-										<img class="img-fluid w-100"
-											src="assets/img/illustrations/Dots.webp" alt="" />
+										<img class="img-fluid w-100" src="img/illustrations/Dots.webp"
+											alt="" />
 									</div>
 								</div>
 							</div>
@@ -262,7 +284,7 @@
 								<div class="row gy-4 g-md-3 pb-8 pb-lg-11 px-1">
 									<div
 										class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2">
-										<img src="assets/img/icons/chat (1).png" alt="" />
+										<img src="img/icons/chat (1).png" alt="" />
 										<div>
 											<h5 class="fs-8 text-white lh-lg fw-bold">Instant Chat</h5>
 											<p class="text-white text-opacity-50 lh-xl mb-0">Chat
@@ -272,7 +294,7 @@
 									</div>
 									<div
 										class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2">
-										<img src="assets/img/icons/video.png" alt="" />
+										<img src="img/icons/video.png" alt="" />
 										<div>
 											<h5 class="fs-8 text-white lh-lg fw-bold">Video Meeting</h5>
 											<p class="text-white text-opacity-50 lh-xl mb-0">Make
@@ -282,7 +304,7 @@
 									</div>
 									<div
 										class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2">
-										<img src="assets/img/icons/voice.png" alt="" />
+										<img src="img/icons/voice.png" alt="" />
 										<div>
 											<h5 class="fs-8 text-white lh-lg fw-bold">Voice Message</h5>
 											<p class="text-white text-opacity-50 lh-xl mb-0">Send and
@@ -295,7 +317,7 @@
 					</div>
 					<div class="position-absolute top-0 start-0 end-0">
 						<div class="bg-white py-3 py-md-9 py-xl-10"></div>
-						<img class="wave" src="assets/img/illustrations/Wave_2.svg" alt="" />
+						<img class="wave" src="img/illustrations/Wave_2.svg" alt="" />
 					</div>
 				</section>
 				<section class="bg-1100 mt-n1">
@@ -323,7 +345,7 @@
 															class="d-flex flex-column flex-lg-row gap-2 px-4 py-x1 review-card-1">
 															<div class="text-center text-lg-start">
 																<img class="card-image rounded-circle object-fit-cover"
-																	src="assets/img/feedback/reviewer_1.webp" alt="" />
+																	src="img/feedback/reviewer_1.webp" alt="" />
 															</div>
 															<div class="text-center text-lg-start">
 																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;TalkFusion
@@ -340,7 +362,7 @@
 															class="d-flex flex-column flex-lg-row gap-2 px-4 py-x1 review-card-2">
 															<div class="text-center text-lg-start">
 																<img class="card-image rounded-circle object-fit-cover"
-																	src="assets/img/feedback/reviewer_2.webp" alt="" />
+																	src="img/feedback/reviewer_2.webp" alt="" />
 															</div>
 															<div class="text-center text-lg-start">
 																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;The
@@ -357,7 +379,7 @@
 															class="d-flex flex-column flex-lg-row gap-2 px-4 py-x1 review-card-3">
 															<div class="text-center text-lg-start">
 																<img class="card-image rounded-circle object-fit-cover"
-																	src="assets/img/feedback/reviewer_3.webp" alt="" />
+																	src="img/feedback/reviewer_3.webp" alt="" />
 															</div>
 															<div class="text-center text-lg-start">
 																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;Excellent
@@ -374,7 +396,7 @@
 															class="d-flex flex-column flex-lg-row gap-2 px-4 py-x1 review-card-4">
 															<div class="text-center text-lg-start">
 																<img class="card-image rounded-circle object-fit-cover"
-																	src="assets/img/feedback/kakashi.webp" alt="" />
+																	src="img/feedback/kakashi.webp" alt="" />
 															</div>
 															<div class="text-center text-lg-start">
 																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;I
@@ -391,7 +413,7 @@
 															class="d-flex flex-column flex-lg-row gap-2 px-4 py-x1 review-card-5">
 															<div class="text-center text-lg-start">
 																<img class="card-image rounded-circle object-fit-cover"
-																	src="assets/img/feedback/obito.webp" alt="" />
+																	src="img/feedback/obito.webp" alt="" />
 															</div>
 															<div class="text-center text-lg-start">
 																<p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">&#8220;TalkFusion's
@@ -452,7 +474,7 @@
 	<script src="vendors/lodash/lodash.min.js"></script>
 	<script
 		src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-	<script src="assets/js/theme.js"></script>
+	<script src="js/theme.js"></script>
 </body>
 
 </html>
