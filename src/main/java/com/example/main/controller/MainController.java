@@ -29,19 +29,31 @@ public class MainController {
 	// Home page handler
 	@GetMapping("/")
 	public String home() {
-		return "home"; 
+		return "home";
 	}
 
 	// Login page handler
 	@GetMapping("/login")
 	public String login() {
-		return "login"; 
+		return "login";
 	}
 
 	// About page handler
 	@GetMapping("/about")
 	public String about() {
-		return "about"; 
+		return "about";
+	}
+
+	// About page handler
+	@GetMapping("/history")
+	public String history() {
+		return "history";
+	}
+
+	// About page handler
+	@GetMapping("/profile")
+	public String profiley() {
+		return "profile";
 	}
 
 	// Signup page handler

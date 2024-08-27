@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>About Page</title>
+<title>History Page</title>
 <style>
 .navbar {
 	background-color: rgb(49, 60, 89) !important;
@@ -54,35 +54,31 @@
 					<li class="nav-item"><a class="nav-link lh-xl" href="/">Home</a></li>
 					<li class="nav-item"><a class="nav-link lh-xl" href="/about">About
 							us</a></li>
-					<%
-					User user = (User) session.getAttribute("user");
-					%>
 					<li style="display: contents">
 						<%
-						if (user == null) {
-						%> <!-- If session exists --> <a
-						class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
-						href="/login">Login</a> <a
-						class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
-						href="/signup">Signup</a> <%
- } else {
+						User user = (User) session.getAttribute("user");
+						%> <%
+ if (user != null) {
  %>
 						<div class="collapse navbar-collapse navbar-nav"
 							id="navbarNavDarkDropdown">
 							<ul class="navbar-nav">
 								<li class="nav-item dropdown">
 									<button class="btn btn-dark dropdown-toggle"
-										style="background-color: transparent; border: none;text-transform: none;"
+										style="background-color: transparent; border: none; text-transform: none;"
 										data-bs-toggle="dropdown" aria-expanded="false">
 										Hello, ${user.username}</button>
 									<ul class="dropdown-menu dropdown-menu-dark">
 										<li><a class="dropdown-item" href="/profile">Profile</a></li>
-										<li><a class="dropdown-item" href="/history">History</a></li>
 										<li><a class="dropdown-item" href="/logout">Logout</a></li>
 									</ul>
 								</li>
 							</ul>
 						</div> <%
+ } else {
+ %> <script>
+		window.location.href = "/";
+	</script> <%
  }
  %>
 					</li>
@@ -91,63 +87,7 @@
 		</div>
 	</nav>
 	<!-- Navbar Code end here -->
-	<h1 class="text-center" style="margin-top: 80px;">About Us</h1>
-	<div class="container-fluid">
-		<p>
-			Welcome to <strong>TalkFusion</strong>, your all-in-one communication
-			platform designed to simplify and enhance your conversations. Whether
-			it's through video calls, voice messages, or text messages, our
-			platform provides a seamless way to connect with your friends,
-			family, or colleagues from anywhere in the world.
-		</p>
-
-		<h3>Our Vision</h3>
-		<p>At TalkFusion, our vision is to create an easy-to-use, secure,
-			and reliable communication tool that brings people closer together,
-			no matter the distance. We believe that clear and efficient
-			communication is essential in today’s fast-paced world, and we strive
-			to provide a platform that allows users to stay connected
-			effortlessly.</p>
-
-		<h3>What We Offer</h3>
-		<ul>
-			<li><strong>Video Calling:</strong> Enjoy crystal-clear video
-				communication with your loved ones or business partners.</li>
-			<li><strong>Voice Messaging:</strong> Leave voice messages for
-				quick, audio-based communication when time is of the essence.</li>
-			<li><strong>Text Messaging:</strong> Send real-time text
-				messages and keep a record of your conversations.</li>
-		</ul>
-
-		<h3>Why Choose TalkFusion?</h3>
-		<ul>
-			<li><strong>User-Friendly:</strong> Designed with simplicity in
-				mind, TalkFusion is easy to navigate for users of all ages and tech
-				experience.</li>
-			<li><strong>Security:</strong> We take user privacy seriously,
-				ensuring all communications are encrypted and secure.</li>
-			<li><strong>Multi-Platform Support:</strong> Access TalkFusion
-				from your desktop or mobile device, giving you the freedom to stay
-				connected on the go.</li>
-		</ul>
-
-		<h3>Our Commitment</h3>
-		<p>We are committed to continuously improving TalkFusion by
-			integrating new features and listening to user feedback. Our
-			dedicated team is always working to provide the best communication
-			experience for our users.</p>
-
-		<h3>Get in Touch</h3>
-		<p>
-			If you have any questions or need support, feel free to reach out to
-			our customer service team at <strong>support@talkfusion.com</strong>.
-			We are here to assist you 24/7.
-		</p>
-
-		<p>Thank you for choosing TalkFusion as your go-to communication
-			platform!</p>
-	</div>
-
+	<h1 style="margin-top: 80px;">History Page</h1>
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"></script>
 	<script src="vendors/popper/popper.min.js"></script>

@@ -22,6 +22,11 @@
 <!-- ===============================================-->
 <!--    Stylesheets-->
 <!-- ===============================================-->
+<style>
+.talkBtn {
+	margin-left: 1px !important;
+}
+</style>
 <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,13 +66,13 @@
 							<li class="nav-item"><a class="nav-link lh-xl" href="/">Home</a></li>
 							<li class="nav-item"><a class="nav-link lh-xl" href="/about">About
 									us</a></li>
-									
-							<li style="display:contents">
+							<%
+							User user = (User) session.getAttribute("user");
+							%>
+							<li style="display: contents">
 								<%
-								User user = (User) session.getAttribute("user");
-								%> <%
- if (user == null) {
- %> <!-- If session exists --> <a
+								if (user == null) {
+								%> <!-- If session exists --> <a
 								class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
 								href="/login">Login</a> <a
 								class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
@@ -79,11 +84,14 @@
 									<ul class="navbar-nav">
 										<li class="nav-item dropdown">
 											<button class="btn btn-dark dropdown-toggle"
-												style="background-color: transparent;border:none;"
+												style="background-color: transparent; border: none;"
 												data-bs-toggle="dropdown" aria-expanded="false">
 												Hello, ${user.username}</button>
 											<ul class="dropdown-menu dropdown-menu-dark">
-												<li><a class="dropdown-item" href="#">Profile</a></li>
+												<li><a class="dropdown-item" href="/profile">Profile</a></li>
+												<li><a class="dropdown-item" href="#"
+													onclick="showAlert()">Let's Talk</a></li>
+												<li><a class="dropdown-item" href="/history">History</a></li>
 												<li><a class="dropdown-item" href="/logout">Logout</a></li>
 											</ul>
 										</li>
@@ -96,6 +104,28 @@
 					</div>
 				</div>
 			</nav>
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel">Let's
+								Talk</h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">Choose any one of the three and feel
+							free to communicate your choice below.</div>
+						<div class="modal-footer d-flex justify-content-between">
+							<a href="/video" class="btn btn-primary btn-sm">Video Call</a> <a
+								href="/voice" class="btn btn-primary btn-sm">Voice Call</a> <a
+								href="/txtmsg" class="btn btn-primary btn-sm">Text Message</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div data-bs-target="#navbar" data-bs-spy="scroll" tabindex="0">
 				<section
 					class="hero-section overflow-hidden position-relative z-0 mb-4 mb-lg-0"
@@ -467,6 +497,15 @@
 	<!--    JavaScripts-->
 	<!-- ===============================================-->
 	<script src="vendors/popper/popper.min.js"></script>
+	<script>
+		function showAlert() {
+			var myModal = new bootstrap.Modal(document
+					.getElementById('exampleModal'), {
+				keyboard : false
+			});
+			myModal.show();
+		}
+	</script>
 	<script src="vendors/bootstrap/bootstrap.min.js"></script>
 	<script src="vendors/is/is.min.js"></script>
 	<script src="vendors/countup/countUp.umd.js"></script>

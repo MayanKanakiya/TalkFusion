@@ -65,12 +65,13 @@
 					<li class="nav-item"><a class="nav-link lh-xl" href="/">Home</a></li>
 					<li class="nav-item"><a class="nav-link lh-xl" href="/about">About
 							us</a></li>
+					<%
+					User user = (User) session.getAttribute("user");
+					%>
 					<li style="display: contents">
 						<%
-						User user = (User) session.getAttribute("user");
-						%> <%
- if (user == null) {
- %> <!-- If session exists --> <a
+						if (user == null) {
+						%> <!-- If session exists --> <a
 						class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
 						href="/login">Login</a> <a
 						class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
