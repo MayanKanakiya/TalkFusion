@@ -22,11 +22,6 @@
 <!-- ===============================================-->
 <!--    Stylesheets-->
 <!-- ===============================================-->
-<style>
-.talkBtn {
-	margin-left: 1px !important;
-}
-</style>
 <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -110,6 +105,7 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
+
 							<h1 class="modal-title fs-5" id="exampleModalLabel">Let's
 								Talk</h1>
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -142,8 +138,19 @@
 										one platform.</p>
 									<div
 										class="d-flex justify-content-center justify-content-lg-start">
+										<%
+										if (user == null) {
+										%>
 										<a class="btn btn-primary btn-lg lh-xl mb-4 mb-md-5 mb-lg-7"
-											href="#">Let's meet</a>
+											href="/login">Let's meet</a>
+										<%
+										} else {
+										%>
+										<a class="btn btn-primary btn-lg lh-xl mb-4 mb-md-5 mb-lg-7"
+											href="#" onclick="showAlert()">Let's meet</a>
+										<%
+										}
+										%>
 									</div>
 								</div>
 								<div class="col-lg-6 position-lg-relative">

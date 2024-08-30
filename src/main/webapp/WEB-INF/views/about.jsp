@@ -66,17 +66,20 @@
 						class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
 						href="/signup">Signup</a> <%
  } else {
- %>
+ %> <!-- If session does not exist -->
 						<div class="collapse navbar-collapse navbar-nav"
 							id="navbarNavDarkDropdown">
 							<ul class="navbar-nav">
 								<li class="nav-item dropdown">
 									<button class="btn btn-dark dropdown-toggle"
-										style="background-color: transparent; border: none;text-transform: none;"
-										data-bs-toggle="dropdown" aria-expanded="false">
-										Hello, ${user.username}</button>
+										style="background-color: transparent; border: none; text-transform: none;"
+										text-transform: none;""
+										data-bs-toggle="dropdown"
+										aria-expanded="false">Hello, ${user.username}</button>
 									<ul class="dropdown-menu dropdown-menu-dark">
 										<li><a class="dropdown-item" href="/profile">Profile</a></li>
+										<li><a class="dropdown-item" href="#"
+											onclick="showAlert()">Let's Talk</a></li>
 										<li><a class="dropdown-item" href="/history">History</a></li>
 										<li><a class="dropdown-item" href="/logout">Logout</a></li>
 									</ul>
@@ -90,6 +93,29 @@
 			</div>
 		</div>
 	</nav>
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Let's Talk</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">Choose any one of the three and feel
+					free to communicate your choice below.</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<a href="/video" class="btn btn-primary btn-sm"
+						style="text-transform: none;">Video Call</a> <a href="/voice"
+						class="btn btn-primary btn-sm" style="text-transform: none;">Voice
+						Call</a> <a href="/txtmsg" class="btn btn-primary btn-sm"
+						style="text-transform: none;">Text Message</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- Navbar Code end here -->
 	<h1 class="text-center" style="margin-top: 80px;">About Us</h1>
 	<div class="container-fluid">
@@ -147,7 +173,16 @@
 		<p>Thank you for choosing TalkFusion as your go-to communication
 			platform!</p>
 	</div>
-
+	<script src="vendors/popper/popper.min.js"></script>
+	<script>
+		function showAlert() {
+			var myModal = new bootstrap.Modal(document
+					.getElementById('exampleModal'), {
+				keyboard : false
+			});
+			myModal.show();
+		}
+	</script>
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"></script>
 	<script src="vendors/popper/popper.min.js"></script>

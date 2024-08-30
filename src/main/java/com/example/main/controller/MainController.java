@@ -44,16 +44,31 @@ public class MainController {
 		return "about";
 	}
 
-	// About page handler
+	// History page handler
 	@GetMapping("/history")
 	public String history() {
 		return "history";
 	}
 
-	// About page handler
+	// Profile page handler
 	@GetMapping("/profile")
-	public String profiley() {
+	public String profile() {
 		return "profile";
+	}
+
+	@GetMapping("/video")
+	public String videoCallPage() {
+		return "video";
+	}
+
+	@GetMapping("/voice")
+	public String voiceCallPage() {
+		return "voice";
+	}
+
+	@GetMapping("/txtmsg")
+	public String txtMsgCallPage() {
+		return "txtmsg";
 	}
 
 	// Signup page handler
