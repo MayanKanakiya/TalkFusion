@@ -14,69 +14,47 @@
 </head>
 
 <body>
+	<!--a0708b6840e942b6ad269acadb1250ab  -->
 	<%
 	User user = (User) session.getAttribute("user");
-	%>
-	<%
 	if (user == null) {
 	%>
-	 <script>
+	<script>
 		window.location.href = "/login";
-	</script> 
+	</script>
 	<%
 	}
 	%>
+
 	<!-- Success alert -->
-	<div id="success-alert"
-		class="alert alert-success alert-dismissible fade show" role="alert">
-		<strong>Congratulations!</strong><span> You can invite others
-			to join this channel by clicking </span> <a href="/video" target="_blank">here</a>
-		<button type="button" class="close" data-dismiss="alert"
-			aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
+	<div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert">
+		<strong>Congratulations!</strong><span> You can invite others to join this channel by clicking </span> <a href="#" target="_blank">here</a>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 
 	<!-- Success alert with token -->
-	<div id="success-alert-with-token"
-		class="alert alert-success alert-dismissible fade show" role="alert">
-		<strong>Congratulations!</strong><span> Joined room
-			successfully. </span>
-		<button type="button" class="close" data-dismiss="alert"
-			aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
+	<div id="success-alert-with-token" class="alert alert-success alert-dismissible fade show" role="alert">
+		<strong>Congratulations!</strong><span> Joined room successfully. </span>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 
 	<div class="container">
-		<form id="join-form">
+		<form id="join-form" method="POST" action="/video">
 			<div class="row join-info-group">
 				<div class="col-sm">
-					<p class="join-info-text">AppID</p>
-					<input id="appid" type="text" placeholder="enter appid" required>
-					<p class="tips">
-						If you don’t know what your appid is, checkout <a
-							href="https://docs.agora.io/en/Agora%20Platform/terms?platform=All%20Platforms#a-nameappidaapp-id"
-							target="_blank">this</a>
-					</p>
+					<h2 class="join-info-text">AppID</h2>
+					<input id="appid" type="text" placeholder="Enter appid" required autocomplete="off">
 				</div>
 
 				<div class="col-sm">
-					<p class="join-info-text">Channel</p>
-					<input id="channel" type="text" placeholder="enter channel name"
-						required>
-					<p class="tips">
-						If you don’t know what your channel is, checkout <a
-							href="https://docs.agora.io/en/Agora%20Platform/terms?platform=All%20Platforms#channel"
-							target="_blank">this</a>
-					</p>
+					<h2 class="join-info-text">Channel</h2>
+					<input id="channel" name="channel" type="text" placeholder="Enter channel name" required autocomplete="off">
 				</div>
 			</div>
 
-			<div class="button-group">
-				<button id="join" type="submit" class="btn btn-primary btn-sm">Join</button>
-				<button id="leave" type="button" class="btn btn-primary btn-sm"
-					disabled>Leave</button>
+			<div class="button-group my-3">
+				<button id="join" type="submit" class="btn btn-danger btn-lg">Join</button>
+				<button id="leave" type="button" class="btn btn-danger btn-lg" disabled>Leave</button>
 			</div>
 		</form>
 
@@ -98,6 +76,66 @@
 	<!-- Agora RTC SDK -->
 	<script src="videoFiles/AgoraRTC_N-4.22.0.js"></script>
 	<script src="videoFiles/index.js"></script>
+
+	<script>
+	let usernamesArray = [];
+
+	async function subscribe(user, mediaType) {
+		const uid = user.uid;
+		await client.subscribe(user, mediaType);
+		console.log("subscribe success");
+		if (mediaType === 'video') {
+			const player = $(`
+				<div id="player-wrapper-${uid}">
+					<p class="player-name">${user.username}</p>
+					<div id="player-${uid}" class="player"></div>
+				</div>
+			`);
+			$("#remote-playerlist").append(player);
+			user.videoTrack.play(`player-${uid}`);
+		}
+		if (mediaType === 'audio') {
+			user.audioTrack.play();
+		}
+		extractPlayerNames();
+	}
+
+	function extractPlayerNames() {
+		const playerNames = document.querySelectorAll('.player-name');
+		usernamesArray = []; // Clear the array before repopulating it
+		playerNames.forEach(element => {
+			const playerName = element.textContent.trim();
+			if (playerName && !usernamesArray.includes(playerName)) {
+				usernamesArray.push(playerName);
+			}
+		});
+		alert("Player names: " + usernamesArray.join(', '));
+		saveVideoData();
+	}
+
+	function saveVideoData() {
+		const channelName = document.getElementById('channel').value;
+
+		fetch('/api/video/save', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				name: channelName,
+				usernamesArray: usernamesArray,
+				time: new Date().toISOString()
+			})
+		})
+		.then(response => response.text())
+		.then(data => {
+			console.log("Response:", data);
+		})
+		.catch((error) => {
+			console.error('Error:', error);
+		});
+	}
+	</script>
 </body>
 
 </html>

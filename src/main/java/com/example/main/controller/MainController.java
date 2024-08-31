@@ -136,4 +136,5 @@ public class MainController {
 		session.invalidate();
 		return "login";
 	}
+
 }
