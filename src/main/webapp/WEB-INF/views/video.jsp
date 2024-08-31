@@ -39,7 +39,7 @@
 	</div>
 
 	<div class="container">
-		<form id="join-form" method="POST" action="/video">
+		<form id="join-form" method="POST" action="/video">	
 			<div class="row join-info-group">
 				<div class="col-sm">
 					<h2 class="join-info-text">AppID</h2>
