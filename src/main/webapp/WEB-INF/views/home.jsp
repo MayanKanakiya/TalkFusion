@@ -22,6 +22,11 @@
 <!-- ===============================================-->
 <!--    Stylesheets-->
 <!-- ===============================================-->
+<style>
+::placeholder {
+	color: gray !important; /* Change this to your desired color */
+}
+</style>
 <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,6 +38,7 @@
 <link href="css/user.min.css" rel="stylesheet" id="user-style-default">
 <link rel="stylesheet"
 	href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+
 </head>
 
 <body>
@@ -83,7 +89,8 @@
 												data-bs-toggle="dropdown" aria-expanded="false">
 												Hello, ${user.username}</button>
 											<ul class="dropdown-menu dropdown-menu-dark">
-												<li><a class="dropdown-item" href="/profile">Profile</a></li>
+												<li><a class="dropdown-item" href="#"
+													onclick="showAlertEditProfile()">Profile</a></li>
 												<li><a class="dropdown-item" href="#"
 													onclick="showAlert()">Let's Talk</a></li>
 												<li><a class="dropdown-item" href="/history">History</a></li>
@@ -121,6 +128,60 @@
 					</div>
 				</div>
 			</div>
+			<section class="container full-height">
+				<!-- User profile Modal -->
+				<div class="modal fade" id="editProfileModal" tabindex="-1"
+					aria-labelledby="editProfileModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="editProfileModalLabel">Edit
+									Your Profile</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="card">
+									<div class="card-body py-2 px-md-2">
+										<!-- User Logo (Centered) -->
+										<div class="d-flex justify-content-center">
+											<img src="img/icons/user.png" alt="User Logo"
+												class="img-fluid mb-3" width="100">
+										</div>
+
+										<!-- Username (Centered) -->
+										<div class="d-flex justify-content-center">
+											<h4 class="mb-4">${user.username}</h4>
+										</div>
+
+										<form method="POST" action="/">
+											<div data-mdb-input-init class="form-outline mb-4">
+												<label class="form-label mb-1" for="email">Edit
+													Email:</label> <input type="email" id="editEmail" name="editEmail"
+													class="form-control" value="${user.email}"
+													style="border-color: gray; border-radius: 4px; height: 40px;"
+													placeholder="Edit your email id" />
+											</div>
+
+											<div data-mdb-input-init class="form-outline mb-4">
+												<label class="form-label mb-1" for="editIcon">Edit
+													Your Icon:</label> <input type="file" id="editIcon" name="editIcon"
+													class="form-control" />
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Edit</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 
 			<div data-bs-target="#navbar" data-bs-spy="scroll" tabindex="0">
 				<section
@@ -508,6 +569,13 @@
 		function showAlert() {
 			var myModal = new bootstrap.Modal(document
 					.getElementById('exampleModal'), {
+				keyboard : false
+			});
+			myModal.show();
+		}
+		function showAlertEditProfile() {
+			var myModal = new bootstrap.Modal(document
+					.getElementById('editProfileModal'), {
 				keyboard : false
 			});
 			myModal.show();

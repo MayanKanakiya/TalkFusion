@@ -23,19 +23,29 @@ public class User {
 	@NotEmpty(message = "Password cannot be empty")
 	private String pass;
 	private Timestamp time;
+	private String userIcon;
 
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(int id, String username, String email, String pass, Timestamp time) {
+	public User(int id, String username, String email, String pass, Timestamp time,String userIcon) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.pass = pass;
 		this.time = time;
+		this.userIcon = userIcon;
+	}
+
+	public String getUserIcon() {
+		return userIcon;
+	}
+
+	public void setUserIcon(String userIcon) {
+		this.userIcon = userIcon;
 	}
 
 	public int getId() {

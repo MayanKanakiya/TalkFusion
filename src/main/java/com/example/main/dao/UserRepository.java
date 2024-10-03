@@ -12,19 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.main.entities.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-	@Modifying
-	@Transactional
-	@Query(value = "INSERT INTO User (username, email, pass,time) VALUES (:username, :email, :password,:time)", nativeQuery = true)
-	int saveUser(@Param("username") String username, @Param("email") String email, @Param("password") String password,
-			@Param("time") Timestamp time);
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO User (username, email, pass, time, user_icon) VALUES (:username, :email, :password, :time, :userIcon)", nativeQuery = true)
+    int saveUser(@Param("username") String username, @Param("email") String email, 
+                  @Param("password") String password, @Param("time") Timestamp time,
+                  @Param("userIcon") String userIcon); // Add userIcon parameter
 
-	@Query(value = "SELECT COUNT(*) FROM User WHERE username = :username", nativeQuery = true)
-	int checkUsernameExists(@Param("username") String username);
+    @Query(value = "SELECT COUNT(*) FROM User WHERE username = :username", nativeQuery = true)
+    int checkUsernameExists(@Param("username") String username);
 
-	@Query(value = "SELECT COUNT(*) FROM User WHERE email = :email", nativeQuery = true)
-	int checkEmailExists(@Param("email") String email);
+    @Query(value = "SELECT COUNT(*) FROM User WHERE email = :email", nativeQuery = true)
+    int checkEmailExists(@Param("email") String email);
 
-	@Query("SELECT u FROM User u WHERE u.email = :email AND u.pass = :password")
-	Optional<User> findByEmailAndPass(@Param("email") String email, @Param("password") String password);
-
+    @Query("SELECT u FROM User u WHERE u.email = :email AND u.pass = :password")
+    Optional<User> findByEmailAndPass(@Param("email") String email, @Param("password") String password);
 }

@@ -1,0 +1,51 @@
+/* Padding */
+.p-20 {
+    padding: 20px;
+}
+
+input:not([type]):focus:not([readonly]),input[type=text]:not(.browser-default):focus:not([readonly]),input[type=password]:not(.browser-default):focus:not([readonly]),input[type=email]:not(.browser-default):focus:not([readonly]),input[type=url]:not(.browser-default):focus:not([readonly]),input[type=time]:not(.browser-default):focus:not([readonly]),input[type=date]:not(.browser-default):focus:not([readonly]),input[type=datetime]:not(.browser-default):focus:not([readonly]),input[type=datetime-local]:not(.browser-default):focus:not([readonly]),input[type=tel]:not(.browser-default):focus:not([readonly]),input[type=number]:not(.browser-default):focus:not([readonly]),input[type=search]:not(.browser-default):focus:not([readonly]),textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid rgb(255, 0, 0);
+    -webkit-box-shadow: 0 1px 0 0 rgb(255, 0, 0);
+    box-shadow: 0 1px 0 0 #26a69a;
+}
+input:not([type]):focus:not([readonly])+label,input[type=text]:not(.browser-default):focus:not([readonly])+label,input[type=password]:not(.browser-default):focus:not([readonly])+label,input[type=email]:not(.browser-default):focus:not([readonly])+label,input[type=url]:not(.browser-default):focus:not([readonly])+label,input[type=time]:not(.browser-default):focus:not([readonly])+label,input[type=date]:not(.browser-default):focus:not([readonly])+label,input[type=datetime]:not(.browser-default):focus:not([readonly])+label,input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label,input[type=tel]:not(.browser-default):focus:not([readonly])+label,input[type=number]:not(.browser-default):focus:not([readonly])+label,input[type=search]:not(.browser-default):focus:not([readonly])+label,textarea.materialize-textarea:focus:not([readonly])+label {
+    color: rgb(255, 0, 0)
+}
+/* Margin Y-Axis */
+.my-2 {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+/* Displays */
+.d-none {
+    display: none;
+}
+
+/* Label Focus Color */
+#channelNameInput:focus+label,
+#accountName:focus+label,
+#channelMsg:focus+label {
+    color: rgb(255, 0, 0);
+}
+
+/* Label Underline Focus Color */
+#channelNameInput:focus,
+#accountName:focus,
+#channelMsg:focus {
+    border-bottom: 1px solid rgb(255, 0, 0);
+    box-shadow: 0 1px 0 0 rgb(255, 0, 0);
+}
+
+/* Channel Join Button */
+#joinChannelBtn,
+#sendMsgBtn {
+    background-color: #0C9DFD;
+    color: white;
+    border-radius: 5px;
+}
+
+#joinChannelBtn:hover,
+#sendMsgBtn:hover {
+    background-color: rgb(2, 133, 221);
+}
