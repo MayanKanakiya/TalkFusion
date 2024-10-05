@@ -73,8 +73,13 @@ public class MainController {
 
     // Signup page handler
     @GetMapping("/signup")
-    public String signup() {
+    public String signup() {				
         return "signup";
+    }
+ // SuperAdmin page handler
+    @GetMapping("/talkfusionsuperadmin")
+    public String superAdminLogin() {
+        return "superadminlogin";
     }
 
     @PostMapping("/signup")
@@ -148,4 +153,20 @@ public class MainController {
         }
         return "profile"; // Redirect back to profile page
     }
+    @PostMapping("/superadminauth")
+    public String superAdminAuth(@RequestParam("superadminuname") String superadminuname, @RequestParam("superadminpass") String superadminpass,Model model,HttpSession session) {
+//    	Superadmin pass : xQ!7k%hV2@pG3$gZ9r&J4yA7*n8LsX0
+    	
+        String correctUsername = "talkfusionadmin";
+        String correctPassword = "xQ!7k%hV2@pG3$gZ9r&J4yA7*n8LsX0";
+        
+        if (superadminuname.equals(correctUsername) && superadminpass.equals(correctPassword)) {
+            session.setAttribute("superadmin", correctUsername);
+            return "superadminview";
+        } else {
+            model.addAttribute("error", "Invalid superadmin credentials!");
+            return "superadminlogin";
+        }
+    }
+    
 }

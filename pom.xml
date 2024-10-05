@@ -20,7 +20,6 @@
 	<properties>
 		<java.version>22</java.version>
 	</properties>
-
 	<dependencies>
 		<!-- JSP and JSTL dependencies -->
 		<dependency>
@@ -87,7 +86,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-activemq</artifactId>
 		</dependency>
-
 	</dependencies>
 
 	<build>
