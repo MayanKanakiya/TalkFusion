@@ -145,8 +145,8 @@
 									<div class="card-body py-2 px-md-2">
 										<!-- User Logo (Centered) -->
 										<div class="d-flex justify-content-center">
-											<img src="img/icons/user.png" alt="User Logo"
-												class="img-fluid mb-3" width="100">
+											<img src="/img/icons/${user.userIcon}" alt="User Icon"
+												style="width: 93px; border-radius: 63px;" />
 										</div>
 
 										<!-- Username (Centered) -->
@@ -154,7 +154,8 @@
 											<h4 class="mb-4">${user.username}</h4>
 										</div>
 
-										<form method="POST" action="/">
+										<form method="POST" action="/editProfile"
+											enctype="multipart/form-data">
 											<div data-mdb-input-init class="form-outline mb-4">
 												<label class="form-label mb-1" for="email">Edit
 													Email:</label> <input type="email" id="editEmail" name="editEmail"
@@ -168,15 +169,14 @@
 													Your Icon:</label> <input type="file" id="editIcon" name="editIcon"
 													class="form-control" />
 											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-primary">Edit</button>
+											</div>
 										</form>
 									</div>
 								</div>
-							</div>
-
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary">Edit</button>
 							</div>
 						</div>
 					</div>

@@ -268,7 +268,7 @@
 									<h4 class="mb-4">${user.username}</h4>
 								</div>
 
-								<form method="POST" action="/">
+								<form method="POST" action="/editProfile" enctype="multipart/form-data">
 									<div data-mdb-input-init class="form-outline mb-4">
 										<label class="form-label mb-1" for="email">Edit Email:</label>
 										<input type="email" id="editEmail" name="editEmail"
