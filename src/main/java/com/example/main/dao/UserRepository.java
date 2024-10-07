@@ -1,6 +1,7 @@
 package com.example.main.dao;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,5 +36,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Query(value = "UPDATE User SET email = :email, user_icon = :userIcon WHERE username = :username", nativeQuery = true)
     int updateUserProfileByUsername(@Param("email") String email, @Param("userIcon") String userIcon, @Param("username") String username);
+    
+    @Query("SELECT u FROM User u")
+    List<User> fetchAllUsers(); 
 
 }

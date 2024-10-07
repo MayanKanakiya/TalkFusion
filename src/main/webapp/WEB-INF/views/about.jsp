@@ -131,8 +131,8 @@
 							<div class="card-body py-2 px-md-2">
 								<!-- User Logo (Centered) -->
 								<div class="d-flex justify-content-center">
-									<img src="img/icons/user.png" alt="User Logo"
-										class="img-fluid mb-3" width="100">
+									<img src="/img/icons/${user.userIcon}" alt="User Icon"
+												style="width: 93px; border-radius: 63px;" />
 								</div>
 
 								<!-- Username (Centered) -->

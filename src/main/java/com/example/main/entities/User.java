@@ -1,6 +1,7 @@
 package com.example.main.entities;
 
 import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -87,5 +88,13 @@ public class User {
 	public void setTime(Timestamp time) {
 		this.time = time;
 	}
+	// Method to format the time as per your requirement
+    public String getFormattedTime() {
+        if (time != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
+            return time.toLocalDateTime().format(formatter);
+        }
+        return "No time available";
+    }
 
 }

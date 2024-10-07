@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="com.example.main.entities.User"%>
+<%@ page import="java.util.List"%>
+<%@ page import="com.example.main.entities.Video"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,7 +106,7 @@
 			<div id="collapseOne" class="accordion-collapse collapse show"
 				data-bs-parent="#accordionExample">
 				<div class="accordion-body">
-					<table class="table  table-striped">
+					<table class="table table-striped" id="videoLogsTable">
 						<thead>
 							<tr>
 								<th scope="col">Srno</th>
@@ -114,131 +116,130 @@
 							</tr>
 						</thead>
 						<tbody>
+							<%
+							List<Video> videoLogs = (List<Video>) request.getAttribute("videoLogs");
+							if (videoLogs != null && !videoLogs.isEmpty()) {
+								for (int i = 0; i < videoLogs.size(); i++) {
+									Video video = videoLogs.get(i);
+							%>
 							<tr>
-								<th scope="row">1</th>
-								<td>Friends</td>
-								<td>Mayank,Ram</td>
-								<td>26-09-2024</td>
+								<th scope="row"><%=i + 1%></th>
+								<td><%=video.getName()%></td>
+								<td><%=video.getUsernamesArray()%></td>
+								<td><%=video.getFormattedTime()%></td>
 							</tr>
+							<%
+							}
+							} else {
+							%>
 							<tr>
-								<th scope="row">2</th>
-								<td>Friends</td>
-								<td>Ram,Sita</td>
-								<td>26-09-2024</td>
+								<td colspan="4">No video logs available.</td>
 							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Friends</td>
-								<td>Mayank,Raj</td>
-								<td>26-09-2024</td>
-							</tr>
-							<tr>
-								<th scope="row">4</th>
-								<td>Friends</td>
-								<td>Mayank,Rohan</td>
-								<td>26-09-2024</td>
-							</tr>
+							<%
+							}
+							%>
 						</tbody>
+
 					</table>
 				</div>
 			</div>
 		</div>
-		<div class="accordion-item">
-			<h2 class="accordion-header">
-				<button class="accordion-button collapsed" type="button"
-					data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-					aria-expanded="false" aria-controls="collapseTwo">Voice
-					History</button>
-			</h2>
-			<div id="collapseTwo" class="accordion-collapse collapse"
-				data-bs-parent="#accordionExample">
-				<div class="accordion-body">
-					<table class="table  table-striped">
-						<thead>
-							<tr>
-								<th scope="col">Srno</th>
-								<th scope="col">Channel Name</th>
-								<th scope="col">Communicate User</th>
-								<th scope="col">Time</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>Friends</td>
-								<td>Mayank,Ram</td>
-								<td>26-09-2024</td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>Friends</td>
-								<td>Ram,Sita</td>
-								<td>26-09-2024</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Friends</td>
-								<td>Mayank,Raj</td>
-								<td>26-09-2024</td>
-							</tr>
-							<tr>
-								<th scope="row">4</th>
-								<td>Friends</td>
-								<td>Mayank,Rohan</td>
-								<td>26-09-2024</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+	</div>
+	<div class="accordion-item">
+		<h2 class="accordion-header">
+			<button class="accordion-button collapsed" type="button"
+				data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+				aria-expanded="false" aria-controls="collapseTwo">Voice
+				History</button>
+		</h2>
+		<div id="collapseTwo" class="accordion-collapse collapse"
+			data-bs-parent="#accordionExample">
+			<div class="accordion-body">
+				<table class="table  table-striped">
+					<thead>
+						<tr>
+							<th scope="col">Srno</th>
+							<th scope="col">Channel Name</th>
+							<th scope="col">Communicate User</th>
+							<th scope="col">Time</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>Friends</td>
+							<td>Mayank,Ram</td>
+							<td>26-09-2024</td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>Friends</td>
+							<td>Ram,Sita</td>
+							<td>26-09-2024</td>
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td>Friends</td>
+							<td>Mayank,Raj</td>
+							<td>26-09-2024</td>
+						</tr>
+						<tr>
+							<th scope="row">4</th>
+							<td>Friends</td>
+							<td>Mayank,Rohan</td>
+							<td>26-09-2024</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
-		<div class="accordion-item">
-			<h2 class="accordion-header">
-				<button class="accordion-button collapsed" type="button"
-					data-bs-toggle="collapse" data-bs-target="#collapseThree"
-					aria-expanded="false" aria-controls="collapseThree">Chat
-					History</button>
-			</h2>
-			<div id="collapseThree" class="accordion-collapse collapse"
-				data-bs-parent="#accordionExample">
-				<div class="accordion-body">
-					<table class="table  table-striped">
-						<thead>
-							<tr>
-								<th scope="col">Srno</th>
-								<th scope="col">Channel Name</th>
-								<th scope="col">Communicate User</th>
-								<th scope="col">Time</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>Friends</td>
-								<td>Mayank,Ram</td>
-								<td>26-09-2024</td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>Friends</td>
-								<td>Ram,Sita</td>
-								<td>26-09-2024</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Friends</td>
-								<td>Mayank,Raj</td>
-								<td>26-09-2024</td>
-							</tr>
-							<tr>
-								<th scope="row">4</th>
-								<td>Friends</td>
-								<td>Mayank,Rohan</td>
-								<td>26-09-2024</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+	</div>
+	<div class="accordion-item">
+		<h2 class="accordion-header">
+			<button class="accordion-button collapsed" type="button"
+				data-bs-toggle="collapse" data-bs-target="#collapseThree"
+				aria-expanded="false" aria-controls="collapseThree">Chat
+				History</button>
+		</h2>
+		<div id="collapseThree" class="accordion-collapse collapse"
+			data-bs-parent="#accordionExample">
+			<div class="accordion-body">
+				<table class="table  table-striped">
+					<thead>
+						<tr>
+							<th scope="col">Srno</th>
+							<th scope="col">Channel Name</th>
+							<th scope="col">Communicate User</th>
+							<th scope="col">Time</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>Friends</td>
+							<td>Mayank,Ram</td>
+							<td>26-09-2024</td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>Friends</td>
+							<td>Ram,Sita</td>
+							<td>26-09-2024</td>
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td>Friends</td>
+							<td>Mayank,Raj</td>
+							<td>26-09-2024</td>
+						</tr>
+						<tr>
+							<th scope="row">4</th>
+							<td>Friends</td>
+							<td>Mayank,Rohan</td>
+							<td>26-09-2024</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -259,8 +260,8 @@
 							<div class="card-body py-2 px-md-2">
 								<!-- User Logo (Centered) -->
 								<div class="d-flex justify-content-center">
-									<img src="img/icons/user.png" alt="User Logo"
-										class="img-fluid mb-3" width="100">
+									<img src="/img/icons/${user.userIcon}" alt="User Icon"
+										style="width: 93px; border-radius: 63px;" />
 								</div>
 
 								<!-- Username (Centered) -->
@@ -268,7 +269,8 @@
 									<h4 class="mb-4">${user.username}</h4>
 								</div>
 
-								<form method="POST" action="/editProfile" enctype="multipart/form-data">
+								<form method="POST" action="/editProfile"
+									enctype="multipart/form-data">
 									<div data-mdb-input-init class="form-outline mb-4">
 										<label class="form-label mb-1" for="email">Edit Email:</label>
 										<input type="email" id="editEmail" name="editEmail"

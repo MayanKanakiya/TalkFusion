@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.main.dao.UserRepository;
+import com.example.main.dao.VideoRepository;
 import com.example.main.entities.User;
+import com.example.main.entities.Video;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -29,6 +32,9 @@ public class MainController {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private VideoRepository videoRepository;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -53,7 +59,12 @@ public class MainController {
 
 	// History page handler
 	@GetMapping("/history")
-	public String history() {
+	public String history(Model model) {
+		List<Video> videoLogs = videoRepository.fetchAllVideoLogs(); // Fetch video logs from the database
+		System.out.println("Video Logs Size: " + videoLogs.size()); // Debug log
+
+		// Add the video logs to the model
+		model.addAttribute("videoLogs", videoLogs);
 		return "history";
 	}
 
@@ -172,120 +183,123 @@ public class MainController {
 
 		if (superadminuname.equals(correctUsername) && superadminpass.equals(correctPassword)) {
 			session.setAttribute("superadmin", correctUsername);
+			// Fetch all users from the UserRepository
+			List<User> users = userRepository.findAll();
+			model.addAttribute("users", users);
 			return "superadminview";
 		} else {
 			model.addAttribute("error", "Invalid superadmin credentials!");
 			return "superadminlogin";
 		}
 	}
+
 	@PostMapping("/editProfile")
-	public String editProfile(@RequestParam("editEmail") String editEmail, 
-	                          @RequestParam(value = "editIcon", required = false) MultipartFile editIcon, 
-	                          Model model, HttpSession session) {
+	public String editProfile(@RequestParam("editEmail") String editEmail,
+			@RequestParam(value = "editIcon", required = false) MultipartFile editIcon, Model model,
+			HttpSession session) {
 
-	    // Retrieve the User object from the session
-	    User sessionUser = (User) session.getAttribute("user");
+		// Retrieve the User object from the session
+		User sessionUser = (User) session.getAttribute("user");
 
-	    // Check if the session contains a valid user
-	    if (sessionUser == null || sessionUser.getUsername() == null) {
-	        System.out.println("Session expired or invalid. Redirecting to login.");
-	        model.addAttribute("error", "Session expired. Please log in again.");
-	        return "login"; // Redirect to login page if session is invalid
-	    }
+		// Check if the session contains a valid user
+		if (sessionUser == null || sessionUser.getUsername() == null) {
+			System.out.println("Session expired or invalid. Redirecting to login.");
+			model.addAttribute("error", "Session expired. Please log in again.");
+			return "login"; // Redirect to login page if session is invalid
+		}
 
-	    // Extract the username from the session User object
-	    String username = sessionUser.getUsername();
-	    System.out.println("Username from session: " + username);
+		// Extract the username from the session User object
+		String username = sessionUser.getUsername();
+		System.out.println("Username from session: " + username);
 
-	    // Fetch the current email and icon for the logged-in user
-	    String previousEmail = userRepository.findEmailByUsername(username);
-	    String currentIcon = sessionUser.getUserIcon(); // Get the current icon name
-	    System.out.println("Previous email: " + previousEmail);
-	    
-	    String newIconName = null; // Initialize the variable to hold the new icon name
+		// Fetch the current email and icon for the logged-in user
+		String previousEmail = userRepository.findEmailByUsername(username);
+		String currentIcon = sessionUser.getUserIcon(); // Get the current icon name
+		System.out.println("Previous email: " + previousEmail);
 
-	    // If a new file is uploaded, save it and get the new filename
-	    if (editIcon != null && !editIcon.isEmpty()) {
-	        try {
-	            // Define the directory to save the uploaded image
-	            String uploadDir = "src/main/resources/static/img/icons/";
+		String newIconName = null; // Initialize the variable to hold the new icon name
 
-	            // Create the directory if it does not exist
-	            Path uploadPath = Paths.get(uploadDir);
-	            if (!Files.exists(uploadPath)) {
-	                Files.createDirectories(uploadPath);
-	            }
+		// If a new file is uploaded, save it and get the new filename
+		if (editIcon != null && !editIcon.isEmpty()) {
+			try {
+				// Define the directory to save the uploaded image
+				String uploadDir = "src/main/resources/static/img/icons/";
 
-	            // Check if there's an existing icon to delete
-	            if (currentIcon != null && !currentIcon.isEmpty()) {
-	                // Define the path for the old icon
-	                Path oldIconPath = uploadPath.resolve(currentIcon);
-	                // Delete the old icon file if it exists
-	                if (Files.exists(oldIconPath)) {
-	                    Files.delete(oldIconPath);
-	                    System.out.println("Deleted old icon: " + currentIcon);
-	                }
-	            }
+				// Create the directory if it does not exist
+				Path uploadPath = Paths.get(uploadDir);
+				if (!Files.exists(uploadPath)) {
+					Files.createDirectories(uploadPath);
+				}
 
-	            // Generate a unique filename to avoid conflicts
-	            newIconName = UUID.randomUUID().toString() + "_" + editIcon.getOriginalFilename();
-	            Path filePath = uploadPath.resolve(newIconName);
+				// Check if there's an existing icon to delete
+				if (currentIcon != null && !currentIcon.isEmpty()) {
+					// Define the path for the old icon
+					Path oldIconPath = uploadPath.resolve(currentIcon);
+					// Delete the old icon file if it exists
+					if (Files.exists(oldIconPath)) {
+						Files.delete(oldIconPath);
+						System.out.println("Deleted old icon: " + currentIcon);
+					}
+				}
 
-	            // Save the uploaded file to the directory
-	            Files.copy(editIcon.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-	            System.out.println("Uploaded new icon: " + newIconName);
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	            model.addAttribute("error", "Error while uploading image. Please try again.");
-	            return "/";
-	        }
-	    }
+				// Generate a unique filename to avoid conflicts
+				newIconName = UUID.randomUUID().toString() + "_" + editIcon.getOriginalFilename();
+				Path filePath = uploadPath.resolve(newIconName);
 
-	    // Update user profile with the new email and icon
-	    if (editEmail.equals(previousEmail)) {
-	        System.out.println("Emails are the same, proceeding to update icon only.");
-	        int updateStatus = userRepository.updateUserProfileByUsername(editEmail, 
-	                             newIconName != null ? newIconName : currentIcon, // Use new icon name or keep the old one
-	                             username);
-	        System.out.println("Update status: " + updateStatus);
-	        if (updateStatus > 0) {
-	            model.addAttribute("message", "Profile updated successfully!");
-	            // Update the session with the new email and icon
-	            sessionUser.setEmail(editEmail);
-	            if (newIconName != null) {
-	                sessionUser.setUserIcon(newIconName); // Update with new icon name
-	            }
-	            session.setAttribute("user", sessionUser); // Refresh the session
-	        } else {
-	            model.addAttribute("error", "Profile update failed. Please try again.");
-	        }
-	    } else {
-	        System.out.println("Emails are different, checking if the new email exists.");
-	        // Check if the new email exists in the database
-	        int emailCount = userRepository.checkEmailExists(editEmail);
-	        System.out.println("Email count for new email: " + emailCount);
-	        
-	        if (emailCount > 0) {
-	            model.addAttribute("error", "Email already exists!");
-	            return "login"; // Redirect back to edit profile page with error message
-	        } else {
-	            // Update with the new email and icon
-	            System.out.println("Email is unique, proceeding to update email and icon.");
-	            int updateStatus = userRepository.updateUserProfileByUsername(editEmail, 
-	                                 newIconName != null ? newIconName : currentIcon, 
-	                                 username);
-	            System.out.println("Update status: " + updateStatus);
-	            if (updateStatus > 0) {
-	                // Invalidate session and ask the user to log in again after email change
-	                session.invalidate(); // Invalidate the session
-	                model.addAttribute("message", "Email updated successfully. Please log in again.");
-	                return "login"; // Redirect to login page
-	            } else {
-	                model.addAttribute("error", "Profile update failed. Please try again.");
-	            }
-	        }
-	    }
+				// Save the uploaded file to the directory
+				Files.copy(editIcon.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+				System.out.println("Uploaded new icon: " + newIconName);
+			} catch (IOException e) {
+				e.printStackTrace();
+				model.addAttribute("error", "Error while uploading image. Please try again.");
+				return "/";
+			}
+		}
 
-	    return "redirect:/"; // Redirect back to edit profile page with success or failure message
+		// Update user profile with the new email and icon
+		if (editEmail.equals(previousEmail)) {
+			System.out.println("Emails are the same, proceeding to update icon only.");
+			int updateStatus = userRepository.updateUserProfileByUsername(editEmail,
+					newIconName != null ? newIconName : currentIcon, // Use new icon name or keep the old one
+					username);
+			System.out.println("Update status: " + updateStatus);
+			if (updateStatus > 0) {
+				model.addAttribute("message", "Profile updated successfully!");
+				// Update the session with the new email and icon
+				sessionUser.setEmail(editEmail);
+				if (newIconName != null) {
+					sessionUser.setUserIcon(newIconName); // Update with new icon name
+				}
+				session.setAttribute("user", sessionUser); // Refresh the session
+			} else {
+				model.addAttribute("error", "Profile update failed. Please try again.");
+			}
+		} else {
+			System.out.println("Emails are different, checking if the new email exists.");
+			// Check if the new email exists in the database
+			int emailCount = userRepository.checkEmailExists(editEmail);
+			System.out.println("Email count for new email: " + emailCount);
+
+			if (emailCount > 0) {
+				model.addAttribute("error", "Email already exists!");
+				return "login"; // Redirect back to edit profile page with error message
+			} else {
+				// Update with the new email and icon
+				System.out.println("Email is unique, proceeding to update email and icon.");
+				int updateStatus = userRepository.updateUserProfileByUsername(editEmail,
+						newIconName != null ? newIconName : currentIcon, username);
+				System.out.println("Update status: " + updateStatus);
+				if (updateStatus > 0) {
+					// Invalidate session and ask the user to log in again after email change
+					session.invalidate(); // Invalidate the session
+					model.addAttribute("message", "Email updated successfully. Please log in again.");
+					return "login"; // Redirect to login page
+				} else {
+					model.addAttribute("error", "Profile update failed. Please try again.");
+				}
+			}
+		}
+
+		return "redirect:/"; // Redirect back to edit profile page with success or failure message
 	}
 }
