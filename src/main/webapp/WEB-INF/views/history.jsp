@@ -167,27 +167,27 @@
 					<tbody>
 						<tr>
 							<th scope="row">1</th>
-							<td>Friends</td>
-							<td>Mayank,Ram</td>
-							<td>26-09-2024</td>
+							<td>voiceChat</td>
+							<td>2024-10-06 17:16:45</td>
+							<td>["You"]</td>
 						</tr>
 						<tr>
 							<th scope="row">2</th>
-							<td>Friends</td>
-							<td>Ram,Sita</td>
-							<td>26-09-2024</td>
+							<td>voiceChat</td>
+							<td>2024-10-06 17:16:45</td>
+							<td>["You","Mayank"]</td>
 						</tr>
 						<tr>
 							<th scope="row">3</th>
-							<td>Friends</td>
-							<td>Mayank,Raj</td>
-							<td>26-09-2024</td>
+							<td>voiceChat</td>
+							<td>2024-10-06 17:16:45</td>
+							<td>["You"]</td>
 						</tr>
 						<tr>
 							<th scope="row">4</th>
-							<td>Friends</td>
-							<td>Mayank,Rohan</td>
-							<td>26-09-2024</td>
+							<td>voiceChat</td>
+							<td>2024-10-06 17:16:45</td>
+							<td>["You","Mayank"]</td>
 						</tr>
 					</tbody>
 				</table>
@@ -216,27 +216,27 @@
 					<tbody>
 						<tr>
 							<th scope="row">1</th>
-							<td>Friends</td>
-							<td>Mayank,Ram</td>
-							<td>26-09-2024</td>
+							<td>Chat</td>
+							<td>2024-10-06 17:16:45</td>
+							<td>["You"]</td>
 						</tr>
 						<tr>
 							<th scope="row">2</th>
-							<td>Friends</td>
-							<td>Ram,Sita</td>
-							<td>26-09-2024</td>
+							<td>Chat</td>
+							<td>2024-10-06 17:16:45</td>
+							<td>["You","Mayank"]</td>
 						</tr>
 						<tr>
 							<th scope="row">3</th>
-							<td>Friends</td>
-							<td>Mayank,Raj</td>
-							<td>26-09-2024</td>
+							<td>Chat</td>
+							<td>2024-10-06 17:16:45</td>
+							<td>["You"]</td>
 						</tr>
 						<tr>
 							<th scope="row">4</th>
-							<td>Friends</td>
-							<td>Mayank,Rohan</td>
-							<td>26-09-2024</td>
+							<td>Chat</td>
+							<td>2024-10-06 17:16:45</td>
+							<td>["You","Mayank"]</td>
 						</tr>
 					</tbody>
 				</table>

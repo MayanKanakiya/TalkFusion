@@ -32,7 +32,7 @@
 					<th>Username</th>
 					<th>Email</th>
 					<th>User Created:</th>
-					<th>Action</th>
+					<!-- <th>Action</th> -->
 				</tr>
 			</thead>
 			<tbody>
@@ -57,9 +57,9 @@
 					<td><%=user.getUsername()%></td>
 					<td><%=user.getEmail()%></td>
 					<td><%=user.getTime()%></td>
-					<td>
+				<!-- 	<td>
 						<button class="get-user-id-btn">Get ID</button>
-					</td>
+					</td> -->
 				</tr>
 				<%
 				}
@@ -70,7 +70,7 @@
 
 	</div>
 
-	<script>
+ 	<script>
 		$(document).ready(function() {
 			// Initialize the DataTable
 			$('#usersTable').DataTable();

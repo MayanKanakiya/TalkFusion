@@ -4,96 +4,138 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Voice Call</title>
-    <!-- Bootstrap and custom CSS -->
-    <link rel="stylesheet" href="videoFiles/bootstrap.min.css">
-    <link rel="stylesheet" href="videoFiles/index.css">
-    <style>
-        .user-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Voice Call</title>
+<!-- Bootstrap and custom CSS -->
+<link rel="stylesheet" href="videoFiles/bootstrap.min.css">
+<link rel="stylesheet" href="videoFiles/index.css">
+<style>
+.user-container {
+	text-align: center;
+	margin-bottom: 20px;
+}
 
-        .user-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 2px solid gray;
-        }
+.user-icon {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	border: 2px solid gray;
+}
 
-        .user-name {
-            margin-top: 10px;
-            font-size: 18px;
-            font-weight: bold;
-        }
+.user-name {
+	margin-top: 10px;
+	font-size: 18px;
+	font-weight: bold;
+}
 
-        .speaking {
-            animation: blink-border 0.8s infinite;
-        }
+.speaking {
+	animation: blink-border 0.8s infinite;
+}
 
-        @keyframes blink-border {
-            0% {
-                border-color: red;
-            }
-            50% {
-                border-color: yellow;
-            }
-            100% {
-                border-color: red;
-            }
-        }
-    </style>
+@
+keyframes blink-border { 0% {
+	border-color: red;
+}
+50
+
+
+
+
+%
+{
+border-color
+
+
+
+
+:
+
+
+
+
+yellow
+
+
+;
+}
+100
+
+
+
+
+%
+{
+border-color
+
+
+
+
+:
+
+
+
+
+red
+
+
+;
+}
+}
+</style>
 </head>
 
 <body>
 
-<%-- Check if the user is logged in --%>
-<%
-    User user = (User) session.getAttribute("user");
-    if (user == null) {
-%>
-    <script>
+	<%-- Check if the user is logged in --%>
+	<%
+	User user = (User) session.getAttribute("user");
+	if (user == null) {
+	%>
+	<script>
         window.location.href = "/login";
     </script>
-<%
-    }
-%>
-    <!-- Remote user icon (image) and username display -->
-    <div class="user-container">
-        <img class="user-icon" src="img/icons/user.png" alt="Remote User Icon" id="remoteUserIcon">
-        <div class="user-name" id="remoteUserName">Remote User</div>
-    </div>
+	<%
+	}
+	%>
+	<!-- Remote user icon (image) and username display -->
+	<div class="user-container">
+		<img class="user-icon" src="img/icons/user.png" alt="Remote User Icon"
+			id="remoteUserIcon">
+		<div class="user-name" id="remoteUserName">Remote User</div>
+	</div>
 
-    <div class="container">
-        <form id="join-form" method="POST" action="/voice">
-            <div class="row join-info-group">
-                <div class="col-sm">
-                    <h2 class="join-info-text">AppID</h2>
-                    <input id="appid" type="text" placeholder="Enter appid" required autocomplete="off">
-                </div>
+	<div class="container">
+		<form id="join-form" method="POST" action="/api/voice/save">
+			<div class="row join-info-group">
+				<div class="col-sm">
+					<h2 class="join-info-text">AppID</h2>
+					<input id="appid" type="text" placeholder="Enter appid" required
+						autocomplete="off">
+				</div>
 
-                <div class="col-sm">
-                    <h2 class="join-info-text">Channel</h2>
-                    <input id="channel" name="channel" type="text" placeholder="Enter channel name" required autocomplete="off">
-                </div>
-            </div>
+				<div class="col-sm">
+					<h2 class="join-info-text">Channel</h2>
+					<input id="channel" name="channel" type="text"
+						placeholder="Enter channel name" required autocomplete="off">
+				</div>
+			</div>
 
-            <div class="button-group my-3">
-                <button id="join" type="submit" class="btn btn-danger btn-lg">Join</button>
-                <button id="leave" type="button" class="btn btn-danger btn-lg" disabled>Leave</button>
-            </div>
-        </form>
-    </div>
+			<div class="button-group my-3">
+				<button id="join" type="submit" class="btn btn-danger btn-lg">Join</button>
+				<button id="leave" type="button" class="btn btn-danger btn-lg"
+					disabled>Leave</button>
+			</div>
+		</form>
 
-    <!-- Include jQuery and Bootstrap scripts -->
-    <script src="videoFiles/jquery-3.4.1.min.js"></script>
-    <script src="videoFiles/bootstrap.bundle.min.js"></script>
-    <!-- Agora RTC SDK -->
-    <script src="videoFiles/AgoraRTC_N-4.22.0.js"></script>
-    <script>
+	</div>
+
+	<!-- Include jQuery and Bootstrap scripts -->
+	<script src="videoFiles/jquery-3.4.1.min.js"></script>
+	<script src="videoFiles/bootstrap.bundle.min.js"></script>
+	<script src="videoFiles/AgoraRTC_N-4.22.0.js"></script>
+	<script>
         let client;
         let localAudioTrack;
         let remoteUserId;
